@@ -1,0 +1,58 @@
+plugins {
+    id 'com.github.johnrengelman.shadow' version '7.1.2'
+    id 'java'
+}
+
+group = 'dev.pizzawunsch'
+version = '1.0-SNAPSHOT'
+
+repositories {
+    mavenCentral()
+    mavenLocal()
+    maven {
+        url = 'https://hub.spigotmc.org/nexus/content/repositories/snapshots/'
+
+        // As of Gradle 5.1, you can limit this to only those
+        // dependencies you expect from it
+        content {
+            includeGroup 'org.bukkit'
+            includeGroup 'org.spigotmc'
+        }
+    }
+    maven { url = 'https://oss.sonatype.org/content/repositories/snapshots' }
+    maven { url = 'https://oss.sonatype.org/content/repositories/central' }
+
+    maven { url 'https://jitpack.io' }
+}
+
+dependencies {
+    testImplementation platform('org.junit:junit-bom:5.9.1')
+    testImplementation 'org.junit.jupiter:junit-jupiter'
+
+    compileOnly 'com.github.azbh111:spigot-1.8.8:R'
+
+    compileOnly 'org.projectlombok:lombok:1.18.22'
+    annotationProcessor 'org.projectlombok:lombok:1.18.22'
+    testCompileOnly 'org.projectlombok:lombok:1.18.22'
+    testAnnotationProcessor 'org.projectlombok:lombok:1.18.22'
+}
+
+
+shadowJar {
+    relocate('org.simpleyaml', 'ir.ciph3r.eris.libs')
+    relocate('org.yaml', 'ir.ciph3r.eris.libs')
+    relocate('org.reflections', 'dev.pizzawunsch.reflections')
+}
+
+shadow {
+    dependencies {
+        implementation 'me.carleslc.Simple-YAML:Simple-Yaml:1.8.4'
+        implementation 'org.reflections:reflections:0.9.9-RC1'
+        implementation group: 'org.yaml',  name: 'snakeyaml', version: '2.0'
+        implementation group: 'mysql', name: 'mysql-connector-java', version: '8.0.29'
+    }
+}
+
+test {
+    useJUnitPlatform()
+}
