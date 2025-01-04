@@ -40,7 +40,7 @@ public class FoodBugFix extends JavaPlugin {
         } catch (Exception exception) {
             exception.printStackTrace();
             getServer().getPluginManager().disablePlugin(this);
-            getServer().getConsoleSender().sendMessage("[" + this.getName() + "] Could not load the BaseWars plugin due to a error occurred while registering the commands and listener.");
+            getServer().getConsoleSender().sendMessage("[" + this.getName() + "] Could not load the FoodBugFix plugin due to a error occurred while registering the commands and listener.");
         }
     }
 
